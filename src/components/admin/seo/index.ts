@@ -1,0 +1,1 @@
+export { SEOPanel } from './SEOPanel'

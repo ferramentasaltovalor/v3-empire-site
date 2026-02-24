@@ -1,0 +1,343 @@
+@import "tailwindcss";
+
+@theme {
+  /* ================================================
+   * EMPIRE GOLD DESIGN SYSTEM — Tailwind v4 Theme
+   * Fonte: src/design-system/tokens.ts
+   * ================================================ */
+
+  /* Fonts */
+  --font-display: 'Cormorant Garamond', serif;
+  --font-body: 'DM Sans', sans-serif;
+
+  /* Empire Colors — Site Público (Dark Mode) */
+  --color-empire-bg: #0a0a0b;
+  --color-empire-surface: #111113;
+  --color-empire-card: #18181b;
+  --color-empire-border: #27272a;
+  --color-empire-text: #fafafa;
+  --color-empire-muted: #71717a;
+  --color-empire-gold: #c9a962;
+  --color-empire-gold-light: #e4d4a5;
+  --color-empire-gold-dark: #9a7b3c;
+  --color-empire-silver: #a8a8a8;
+  --color-empire-silver-light: #d4d4d4;
+  --color-empire-silver-dark: #737373;
+  --color-empire-bronze: #b08d57;
+  --color-empire-bronze-light: #d4b896;
+  --color-empire-bronze-dark: #8b6914;
+
+  /* Admin Colors — Painel Interno (Light Mode) */
+  --color-admin-bg: #FFFFFF;
+  --color-admin-surface: #F9FAFB;
+  --color-admin-sidebar: #FFFFFF;
+  --color-admin-border: #E5E7EB;
+  --color-admin-text: #111827;
+  --color-admin-muted: #6B7280;
+  --color-admin-accent: #c9a962;
+  --color-admin-accent-hover: #9a7b3c;
+
+  /* Semantic Colors */
+  --color-semantic-success: #22C55E;
+  --color-semantic-warning: #F59E0B;
+  --color-semantic-error: #EF4444;
+  --color-semantic-info: #3B82F6;
+
+  /* Shadows */
+  --shadow-card: 0 20px 60px rgba(0, 0, 0, 0.4);
+  --shadow-gold: 0 10px 40px rgba(201, 169, 98, 0.3);
+  --shadow-subtle: 0 4px 16px rgba(0, 0, 0, 0.2);
+
+  /* Max Widths */
+  --container-narrow: 56rem;
+  --container-default: 72rem;
+  --container-wide: 80rem;
+
+  /* Animations */
+  --animate-fade-in-up: fade-in-up 0.6s ease forwards;
+  --animate-pulse-ring: pulse-ring 1.5s ease-out infinite;
+  --animate-shine: shine 4s ease-in-out infinite;
+  --animate-stagger-children: stagger-children 0.6s ease forwards;
+
+  @keyframes fade-in-up {
+    0% {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes pulse-ring {
+    0% {
+      transform: scale(1);
+      opacity: 1;
+    }
+
+    100% {
+      transform: scale(1.5);
+      opacity: 0;
+    }
+  }
+
+  @keyframes shine {
+    0% {
+      transform: translateX(-100%);
+    }
+
+    100% {
+      transform: translateX(100%);
+    }
+  }
+
+  @keyframes stagger-children {
+    0% {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
+@layer base {
+
+  /* Scrollbar customizado */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #0a0a0b;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #27272a;
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #c9a962;
+  }
+
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: #27272a #0a0a0b;
+  }
+}
+
+@layer utilities {
+
+  /* Gradiente de texto dourado */
+  .text-gold-gradient {
+    background: linear-gradient(135deg, #c9a962 0%, #e4d4a5 50%, #c9a962 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Borda com gradiente dourado */
+  .border-gold-gradient {
+    background: linear-gradient(#18181b, #18181b) padding-box,
+      linear-gradient(135deg, #c9a962, #e4d4a5, #c9a962) border-box;
+    border: 1px solid transparent;
+  }
+
+  /* Grid pattern de fundo */
+  .bg-grid-pattern {
+    background-image:
+      linear-gradient(rgba(201, 169, 98, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(201, 169, 98, 0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+}
+
+@layer components {
+
+  /* Prose styles for dark mode - Blog content */
+  .prose-invert {
+    --tw-prose-body: var(--color-empire-text);
+    --tw-prose-headings: var(--color-empire-text);
+    --tw-prose-lead: var(--color-empire-muted);
+    --tw-prose-links: var(--color-empire-gold);
+    --tw-prose-bold: var(--color-empire-text);
+    --tw-prose-counters: var(--color-empire-muted);
+    --tw-prose-bullets: var(--color-empire-gold);
+    --tw-prose-hr: var(--color-empire-border);
+    --tw-prose-quotes: var(--color-empire-muted);
+    --tw-prose-quote-borders: var(--color-empire-gold);
+    --tw-prose-captions: var(--color-empire-muted);
+    --tw-prose-code: var(--color-empire-gold);
+    --tw-prose-pre-code: var(--color-empire-text);
+    --tw-prose-pre-bg: var(--color-empire-card);
+    --tw-prose-th-borders: var(--color-empire-border);
+    --tw-prose-td-borders: var(--color-empire-border);
+  }
+
+  /* Additional prose customizations */
+  .prose prose-invert {
+    /* Ensure good readability */
+    line-height: 1.75;
+  }
+
+  .prose-invert h2 {
+    position: relative;
+  }
+
+  .prose-invert h2::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 60px;
+    height: 2px;
+    background: linear-gradient(90deg, var(--color-empire-gold), transparent);
+  }
+
+  .prose-invert blockquote {
+    font-style: normal;
+    position: relative;
+    padding-left: 1.5rem;
+  }
+
+  .prose-invert blockquote::before {
+    content: '"';
+    position: absolute;
+    left: 0;
+    top: -0.5rem;
+    font-size: 3rem;
+    color: var(--color-empire-gold);
+    opacity: 0.3;
+    font-family: var(--font-display);
+  }
+
+  .prose-invert a {
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.3s ease;
+  }
+
+  .prose-invert a:hover {
+    border-bottom-color: var(--color-empire-gold);
+  }
+
+  .prose-invert code {
+    font-weight: 500;
+  }
+
+  .prose-invert pre {
+    border-radius: 0.375rem;
+  }
+
+  .prose-invert img {
+    border-radius: 0.5rem;
+    box-shadow: var(--shadow-card);
+  }
+
+  /* ================================================
+   * TIPAP EDITOR STYLES — Admin Light Mode
+   * ================================================ */
+
+  .ProseMirror {
+    outline: none;
+  }
+
+  .ProseMirror p.is-editor-empty:first-child::before {
+    content: attr(data-placeholder);
+    float: left;
+    color: var(--color-admin-muted);
+    pointer-events: none;
+    height: 0;
+  }
+
+  .ProseMirror h1,
+  .ProseMirror h2,
+  .ProseMirror h3 {
+    font-weight: 600;
+    color: var(--color-admin-text);
+  }
+
+  .ProseMirror h1 {
+    font-size: 2em;
+  }
+
+  .ProseMirror h2 {
+    font-size: 1.5em;
+  }
+
+  .ProseMirror h3 {
+    font-size: 1.25em;
+  }
+
+  .ProseMirror p {
+    color: var(--color-admin-text);
+    line-height: 1.6;
+  }
+
+  .ProseMirror ul,
+  .ProseMirror ol {
+    padding-left: 1.5rem;
+    color: var(--color-admin-text);
+  }
+
+  .ProseMirror blockquote {
+    border-left: 3px solid var(--color-admin-accent);
+    padding-left: 1rem;
+    color: var(--color-admin-muted);
+    font-style: italic;
+  }
+
+  .ProseMirror code {
+    background: var(--color-admin-surface);
+    padding: 0.2em 0.4em;
+    border-radius: 4px;
+    font-family: monospace;
+    font-size: 0.9em;
+  }
+
+  .ProseMirror pre {
+    background: var(--color-admin-surface);
+    padding: 1rem;
+    border-radius: 8px;
+    overflow-x: auto;
+  }
+
+  .ProseMirror pre code {
+    background: none;
+    padding: 0;
+  }
+
+  .ProseMirror img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin: 1rem 0;
+  }
+
+  .ProseMirror hr {
+    border: none;
+    border-top: 1px solid var(--color-admin-border);
+    margin: 2rem 0;
+  }
+
+  .ProseMirror mark {
+    background-color: rgba(201, 169, 98, 0.3);
+    padding: 0.1em 0.2em;
+    border-radius: 2px;
+  }
+
+  .ProseMirror a {
+    color: var(--color-admin-accent);
+    text-decoration: underline;
+  }
+
+  .ProseMirror a:hover {
+    color: var(--color-admin-accent-hover);
+  }
+}
