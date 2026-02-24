@@ -100,7 +100,8 @@ export async function getLandingPages(
     orderDirection = 'desc',
   } = options
 
-  let query = supabase
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  let query: any = supabase
     .from('landing_pages')
     .select(`
       id,
@@ -189,7 +190,10 @@ export async function createLandingPage(
 ): Promise<LandingPage> {
   const supabase = await createClient()
   
-  const { data, error } = await supabase
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const supabaseAny = supabase as any
+  
+  const { data, error } = await supabaseAny
     .from('landing_pages')
     .insert({
       name: dto.name,
@@ -244,7 +248,10 @@ export async function updateLandingPage(
   if (dto.customAnalyticsId !== undefined) updateData.custom_analytics_id = dto.customAnalyticsId
   if (dto.webhookId !== undefined) updateData.webhook_id = dto.webhookId
 
-  const { data, error } = await supabase
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const supabaseAny = supabase as any
+
+  const { data, error } = await supabaseAny
     .from('landing_pages')
     .update(updateData)
     .eq('id', id)
@@ -266,7 +273,10 @@ export async function updateLandingPage(
 export async function deleteLandingPage(id: string): Promise<void> {
   const supabase = await createClient()
   
-  const { error } = await supabase
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const supabaseAny = supabase as any
+
+  const { error } = await supabaseAny
     .from('landing_pages')
     .update({ deleted_at: new Date().toISOString() })
     .eq('id', id)
@@ -300,11 +310,11 @@ export async function duplicateLandingPage(
       sections: original.sections,
       cssCustom: original.cssCustom,
       conversionGoals: original.conversionGoals,
-      seoTitle: original.seoTitle,
-      seoDescription: original.seoDescription,
-      ogImageUrl: original.ogImageUrl,
-      customAnalyticsId: original.customAnalyticsId,
-      webhookId: original.webhookId,
+      seoTitle: original.seoTitle ?? undefined,
+      seoDescription: original.seoDescription ?? undefined,
+      ogImageUrl: original.ogImageUrl ?? undefined,
+      customAnalyticsId: original.customAnalyticsId ?? undefined,
+      webhookId: original.webhookId ?? undefined,
     },
     userId
   )
@@ -366,7 +376,10 @@ export async function submitForm(submission: FormSubmissionData): Promise<Landin
   // Extract standard fields
   const { name, email, phone, company, message, ...customFields } = submission.fields as Record<string, unknown>
   
-  const { data, error } = await supabase
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const supabaseAny = supabase as any
+
+  const { data, error } = await supabaseAny
     .from('landing_page_leads')
     .insert({
       landing_page_id: submission.landingPageId,

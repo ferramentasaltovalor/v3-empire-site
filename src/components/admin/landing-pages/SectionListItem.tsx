@@ -155,7 +155,6 @@ export function SectionListItem({
         <div className="flex items-center gap-1">
           <Button
             variant="ghost"
-            size="icon"
             className="h-8 w-8"
             onClick={onToggleVisibility}
             title={section.visible ? 'Ocultar' : 'Mostrar'}
@@ -168,7 +167,6 @@ export function SectionListItem({
           </Button>
           <Button
             variant="ghost"
-            size="icon"
             className="h-8 w-8"
             onClick={onDuplicate}
             title="Duplicar"
@@ -177,7 +175,6 @@ export function SectionListItem({
           </Button>
           <Button
             variant="ghost"
-            size="icon"
             className="h-8 w-8"
             onClick={onEdit}
             title="Editar"
@@ -186,7 +183,6 @@ export function SectionListItem({
           </Button>
           <Button
             variant="ghost"
-            size="icon"
             className="h-8 w-8 text-red-500 hover:text-red-600 hover:bg-red-50"
             onClick={onDelete}
             title="Excluir"

@@ -13,12 +13,13 @@ import {
   generateSecretKey,
   cleanupOldIncomingWebhookLogs,
 } from '@/lib/webhooks/incoming'
+import { getIncomingWebhookUrl } from '@/lib/webhooks/incoming-utils'
 import type {
   IncomingWebhookConfig,
   IncomingWebhookInput,
   IncomingWebhookLog,
   IncomingWebhookSource,
-} from '@/lib/webhooks/incoming'
+} from '@/lib/webhooks/incoming-types'
 
 /**
  * Get all incoming webhook configurations
@@ -347,16 +348,6 @@ export async function cleanupIncomingWebhookLogs(
     console.error('Error cleaning up incoming webhook logs:', error)
     return { success: false, error: 'Erro ao limpar logs antigos' }
   }
-}
-
-/**
- * Get webhook URL for display
- */
-export function getIncomingWebhookUrl(slug: string): string {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || process.env.VERCEL_URL
-    ? `https://${process.env.VERCEL_URL}`
-    : 'http://localhost:3000'
-  return `${baseUrl}/api/webhooks/incoming/${slug}`
 }
 
 /**

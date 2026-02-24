@@ -6,8 +6,9 @@
  */
 
 import { useState } from 'react'
-import type { IncomingWebhookConfig, IncomingWebhookLog, IncomingWebhookSource } from '@/lib/webhooks/incoming'
-import { INCOMING_WEBHOOK_SOURCE_LABELS } from '@/lib/webhooks/incoming'
+import type { IncomingWebhookConfig, IncomingWebhookLog, IncomingWebhookSource } from '@/lib/webhooks/incoming-types'
+import { INCOMING_WEBHOOK_SOURCE_LABELS } from '@/lib/webhooks/incoming-types'
+import { getIncomingWebhookUrl } from '@/lib/webhooks/incoming-utils'
 import {
   createIncomingWebhook,
   updateIncomingWebhook,
@@ -15,7 +16,6 @@ import {
   deleteIncomingWebhook,
   regenerateIncomingWebhookSecret,
   getIncomingWebhookLogs,
-  getIncomingWebhookUrl,
 } from './incoming-actions'
 
 interface IncomingWebhookListProps {

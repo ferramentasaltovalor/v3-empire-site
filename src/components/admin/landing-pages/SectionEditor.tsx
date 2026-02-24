@@ -356,7 +356,7 @@ export function SectionEditor({
                   <div className="text-center py-8 text-[var(--color-admin-muted)]">
                     <p className="mb-4">Nenhuma seção adicionada</p>
                     <Button
-                      variant="outline"
+                      variant="secondary"
                       size="sm"
                       onClick={() => setIsAddModalOpen(true)}
                     >
