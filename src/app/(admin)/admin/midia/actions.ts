@@ -8,8 +8,10 @@ import {
     uploadFile,
     updateMediaItem,
     deleteMediaItem,
+    getMediaItem,
     createMediaFolder
 } from '@/lib/admin/media'
+import { mediaEvents } from '@/lib/webhooks'
 import type { Database } from '@/types/database'
 
 type MediaItem = Database['public']['Tables']['media_items']['Row']
@@ -29,6 +31,16 @@ export async function uploadMediaAction(formData: FormData): Promise<{
     const item = await uploadFile(file, folderId || undefined)
 
     if (item) {
+        // Trigger webhook
+        await mediaEvents.uploaded({
+            id: item.id,
+            filename: item.filename,
+            url: item.storage_path, // Using storage_path as URL
+            mime_type: item.mime_type || undefined,
+            size: item.size_bytes || undefined,
+            uploaded_by: item.uploaded_by || undefined,
+        })
+        
         revalidatePath('/admin/midia')
         return { success: true, item }
     }
@@ -59,9 +71,21 @@ export async function deleteMediaAction(id: string): Promise<{
     success?: boolean
     error?: string
 }> {
+    // Get media data before deletion for webhook
+    const itemBeforeDelete = await getMediaItem(id)
+    
     const success = await deleteMediaItem(id)
 
     if (success) {
+        // Trigger webhook
+        if (itemBeforeDelete) {
+            const mediaItem = itemBeforeDelete as { id: string; filename: string }
+            await mediaEvents.deleted({
+                id: mediaItem.id,
+                filename: mediaItem.filename,
+            })
+        }
+        
         revalidatePath('/admin/midia')
         return { success: true }
     }

@@ -319,6 +319,8 @@ export interface Database {
                     slug: string
                     status: 'draft' | 'published'
                     sections: Json
+                    css_custom: string
+                    conversion_goals: Json
                     seo_title: string | null
                     seo_description: string | null
                     og_image_url: string | null
@@ -336,6 +338,8 @@ export interface Database {
                     slug: string
                     status?: 'draft' | 'published'
                     sections?: Json
+                    css_custom?: string
+                    conversion_goals?: Json
                     seo_title?: string | null
                     seo_description?: string | null
                     og_image_url?: string | null
@@ -353,6 +357,8 @@ export interface Database {
                     slug?: string
                     status?: 'draft' | 'published'
                     sections?: Json
+                    css_custom?: string
+                    conversion_goals?: Json
                     seo_title?: string | null
                     seo_description?: string | null
                     og_image_url?: string | null
@@ -363,6 +369,72 @@ export interface Database {
                     created_at?: string
                     updated_at?: string
                     deleted_at?: string | null
+                }
+            }
+            // Landing Page Leads
+            landing_page_leads: {
+                Row: {
+                    id: string
+                    landing_page_id: string
+                    name: string | null
+                    email: string
+                    phone: string | null
+                    company: string | null
+                    message: string | null
+                    custom_fields: Json
+                    source: string | null
+                    medium: string | null
+                    campaign: string | null
+                    utm_params: Json
+                    referrer: string | null
+                    user_agent: string | null
+                    ip_address: string | null
+                    conversion_goal_id: string | null
+                    converted_at: string | null
+                    created_at: string
+                    updated_at: string
+                }
+                Insert: {
+                    id?: string
+                    landing_page_id: string
+                    name?: string | null
+                    email: string
+                    phone?: string | null
+                    company?: string | null
+                    message?: string | null
+                    custom_fields?: Json
+                    source?: string | null
+                    medium?: string | null
+                    campaign?: string | null
+                    utm_params?: Json
+                    referrer?: string | null
+                    user_agent?: string | null
+                    ip_address?: string | null
+                    conversion_goal_id?: string | null
+                    converted_at?: string | null
+                    created_at?: string
+                    updated_at?: string
+                }
+                Update: {
+                    id?: string
+                    landing_page_id?: string
+                    name?: string | null
+                    email?: string
+                    phone?: string | null
+                    company?: string | null
+                    message?: string | null
+                    custom_fields?: Json
+                    source?: string | null
+                    medium?: string | null
+                    campaign?: string | null
+                    utm_params?: Json
+                    referrer?: string | null
+                    user_agent?: string | null
+                    ip_address?: string | null
+                    conversion_goal_id?: string | null
+                    converted_at?: string | null
+                    created_at?: string
+                    updated_at?: string
                 }
             }
             // Analytics Configs
@@ -691,6 +763,7 @@ export type PostRevision = Database['public']['Tables']['post_revisions']['Row']
 export type MediaFolder = Database['public']['Tables']['media_folders']['Row']
 export type MediaItem = Database['public']['Tables']['media_items']['Row']
 export type LandingPage = Database['public']['Tables']['landing_pages']['Row']
+export type LandingPageLead = Database['public']['Tables']['landing_page_leads']['Row']
 export type AnalyticsConfig = Database['public']['Tables']['analytics_configs']['Row']
 export type WebhookConfig = Database['public']['Tables']['webhook_configs']['Row']
 export type WebhookLog = Database['public']['Tables']['webhook_logs']['Row']

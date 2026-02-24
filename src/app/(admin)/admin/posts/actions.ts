@@ -12,9 +12,11 @@ import {
     schedulePost,
     unpublishPost,
     archivePost,
+    getPostById,
 } from '@/lib/admin/posts'
 import { getUserProfile } from '@/lib/auth'
 import { slugify } from '@/lib/utils/slugify'
+import { postEvents } from '@/lib/webhooks'
 import type { PostStatus } from '@/types/database'
 
 export interface ActionResult {
@@ -152,9 +154,21 @@ export async function updatePostAction(id: string, formData: FormData): Promise<
  * Delete a post (soft delete)
  */
 export async function deletePostAction(id: string): Promise<ActionResult> {
+    // Get post data before deletion for webhook
+    const postBeforeDelete = await getPostById(id)
+    
     const success = await deletePost(id)
 
     if (success) {
+        // Trigger webhook
+        if (postBeforeDelete) {
+            await postEvents.deleted({
+                id: postBeforeDelete.id,
+                title: postBeforeDelete.title,
+                slug: postBeforeDelete.slug,
+            })
+        }
+        
         revalidatePath('/admin/posts')
         revalidatePath('/blog')
         return { success: true }
@@ -170,6 +184,16 @@ export async function publishPostAction(id: string): Promise<ActionResult> {
     const post = await publishPost(id)
 
     if (post) {
+        // Trigger webhook
+        await postEvents.published({
+            id: post.id,
+            title: post.title,
+            slug: post.slug,
+            excerpt: post.excerpt || undefined,
+            author_id: post.author_id || undefined,
+            published_at: post.published_at || new Date().toISOString(),
+        })
+        
         revalidatePath('/admin/posts')
         revalidatePath(`/admin/posts/${id}`)
         revalidatePath('/blog')
